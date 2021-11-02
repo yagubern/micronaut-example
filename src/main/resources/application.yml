@@ -1,0 +1,5 @@
+micronaut:
+  server:
+    port: 8089
+  application:
+    name: hello
