@@ -13,5 +13,5 @@ RUN gradle build
 
 FROM openjdk:11-jre
 COPY --from=builder /home/gradle/project/build/libs/hello-0.1-all.jar hello-0.1-all.jar
-EXPOSE 8080
+EXPOSE 8089
 CMD ["java","-jar","hello-0.1-all.jar"]

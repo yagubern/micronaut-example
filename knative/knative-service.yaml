@@ -1,0 +1,16 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: micronaut-rest
+spec:
+  template:
+    metadata:
+      name: micronaut-rest-v1
+    spec:
+      containers:
+        - image: hfd2dsacx/micronaut:latest
+          ports:
+            - containerPort: 8089
+          env:
+            - name: TARGET
+              value: "v1"
