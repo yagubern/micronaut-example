@@ -5,11 +5,11 @@ WORKDIR /home/gradle/project
 # Copy pom.xml to get dependencies
 COPY build.gradle settings.gradle gradle.properties micronaut-cli.yml  ./
 # This will resolve dependencies and cache them
-RUN gradle build
+#RUN gradle build
 # Copy sources
 COPY src src
 # Build app (jar will be in /usr/src/app/target/)
-RUN gradle build
+RUN gradle assemble
 
 FROM openjdk:11-jre
 COPY --from=builder /home/gradle/project/build/libs/hello-0.1-all.jar hello-0.1-all.jar
