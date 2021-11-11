@@ -1,4 +1,4 @@
-apiVersion: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
   name: application-pipeline
@@ -9,16 +9,19 @@ spec:
   params:
     - name: pathToContext
       description: The path to the build context, used by Kaniko - within the workspace
-      default: .
+      default: "."
+    - name: pathToDockerfile
+      description: The path to the dockerfile to build
+      default: "Dockerfile"
     - name: pathToYamlFile
       description: The path to the yaml file to deploy within the git source
-      default: config.yaml
+      default: "config.yaml"
     - name: imageUrl
       description: Url of image repository
-      default: deploy_target
+      default: "deploy_target"
     - name: imageTag
       description: Tag to apply to the built image
-      default: latest
+      default: "latest"
   tasks:
   - name: build-image-from-source
     taskRef:
@@ -26,6 +29,8 @@ spec:
     params:
       - name: pathToContext
         value: "$(params.pathToContext)"
+      - name: pathToDockerfile
+        value: "$(params.pathToDockerfile)"
       - name: imageUrl
         value: "$(params.imageUrl)"
       - name: imageTag
